@@ -1,0 +1,37 @@
+import { type DetailedHTMLProps, forwardRef, type HTMLAttributes } from "react";
+import { tv } from "tailwind-variants";
+
+const container = tv({
+  slots: {
+    containerPropsInternal: ["group flex flex-col gap-1 w-full"],
+  },
+  variants: {
+    color: {
+      normal: "",
+    },
+  },
+
+  defaultVariants: {
+    color: "normal",
+  },
+});
+
+type TContainerInput = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
+export const ContainerInput = forwardRef<HTMLDivElement, TContainerInput>(
+  (props, ref) => {
+    const { containerPropsInternal } = container({});
+
+    return (
+      <div
+        {...props}
+        ref={ref}
+        className={containerPropsInternal({
+          class: props.className,
+        })}
+      />
+    );
+  }
+);

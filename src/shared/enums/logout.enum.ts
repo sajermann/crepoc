@@ -1,0 +1,4 @@
+export enum ELogout {
+	UNAUTHORIZED = "UNAUTHORIZED",
+	HANDLE_BY_USER = "HANDLE_BY_USER",
+}
