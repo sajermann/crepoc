@@ -43,6 +43,10 @@ jobs:
           echo "VITE_TOTAL_COMMITS=$(git rev-list --count HEAD)" >> .env
           echo "VITE_USERNAME=${{ secrets.USERNAME }}" >> .env
           echo "VITE_PASSWORD=${{ secrets.PASSWORD }}" >> .env
+          echo "VITE_APP_NAME=Crepoc" >> .env
+          echo "VITE_URL_API=''" >> .env
+          echo "VITE_APPLICATION_IDENTIFICATOR=@crepoc" >> .env
+          echo "VITE_ACCESS_TOKEN_SECRET=MY_SECRET" >> .env
 
       - name: NPM CI
         run: npm ci
