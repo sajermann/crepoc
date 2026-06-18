@@ -12,7 +12,7 @@ type THeaderProps = {
 
 export function Header({ title, subtitle, action }: THeaderProps) {
   return (
-    <header className="py-4 px-6 border-b border-gray-300 flex items-center justify-between">
+    <header className="bg-white py-4 px-6 border-b border-gray-300 flex items-center justify-between">
       <div className="flex flex-col gap-2">
         <span className="text-lg font-bold">{title}</span>
         {subtitle && <span className="text-xs text-gray-500">{subtitle}</span>}

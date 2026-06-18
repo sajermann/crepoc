@@ -32,6 +32,11 @@ export function useDashboard() {
     },
     placeholderData: keepPreviousData,
   });
-  const dashboardData = data || [];
+  const dashboardData = data || {
+    dataUnknown: [],
+    alerts: [],
+    operations: [],
+    shipments: [],
+  };
   return { isFetching, dashboardData, refetch };
 }
