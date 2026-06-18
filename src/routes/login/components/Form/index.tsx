@@ -14,13 +14,13 @@ export function LoginForm() {
     <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
       <ContainerInput>
         <Label htmlFor="username" isError={!!errors.username?.message}>
-          Username
+          Usuário
         </Label>
         <Input
           autoFocus
           id="username"
           {...register("username")}
-          placeholder="Type your username"
+          placeholder="Digite seu usuário"
           disabled={isLoading}
           iserror={!!errors.username?.message}
         />
@@ -33,13 +33,13 @@ export function LoginForm() {
 
       <ContainerInput>
         <Label htmlFor="password" isError={!!errors.password?.message}>
-          Password
+          Senha
         </Label>
         <Input
           id="password"
           type="password"
           {...register("password")}
-          placeholder="Type your password"
+          placeholder="Digite sua senha"
           disabled={isLoading}
           iserror={!!errors.password?.message}
         />
