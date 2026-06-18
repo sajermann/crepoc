@@ -27,15 +27,15 @@ function dashboardUnknown(quantity = 0) {
   const makeDataLevel = (): TDataUnknownProp[] =>
     range(quantity).map((i): TDataUnknownProp => {
       const map = new Map();
-      map.set('0', 'Ativas');
-      map.set('1', 'Pendentes');
-      map.set('2', 'Rejeitadas');
-      map.set('3', 'Impugnadas');
-      map.set('4', 'Honradas');
+      map.set(0, 'Ativas');
+      map.set(1, 'Pendentes');
+      map.set(2, 'Rejeitadas');
+      map.set(3, 'Impugnadas');
+      map.set(4, 'Honradas');
       return {
         description: map.get(i) || '',
         quantity: faker.number.int({ min: 1, max: 2000 }),
-        difference: `+${faker.number.int({ min: -10, max: 10 })}% vs ontem`,
+        difference: `${faker.number.int({ min: -10, max: 10 })}% vs ontem`,
       };
     });
 
@@ -64,6 +64,7 @@ function dashboardOperations(quantity = 0) {
     range(quantity).map((): TOperation => {
       return {
         id: faker.string.uuid(),
+        operationId: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
         personId: cpf(),
         status: faker.helpers.arrayElement([
           'Rejeitada',
@@ -94,6 +95,7 @@ function dashboardShipments(quantity = 0) {
       const errorsCount = faker.number.int({ min: 0, max: 10 });
       return {
         id: faker.string.uuid(),
+        shipmentId: `R${faker.number.int({ min: 100, max: 999 })}`,
         date: faker.date.recent().toISOString(),
         status: faker.helpers.arrayElement([
           'Processada',
@@ -143,7 +145,8 @@ function operations(quantity = 0) {
     range(quantity).map((): TOperation => {
       const status = faker.helpers.arrayElement(['Rejeitada', 'Honrada']);
       return {
-        id: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
+        id: faker.string.uuid(),
+        operationId: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
         personId: cpf(),
         operationValue: faker.number.int({ min: 1000, max: 5000 }),
         status: status,
@@ -175,6 +178,7 @@ function shipments(quantity = 0) {
           status === 'Processada'
             ? 0
             : faker.number.int({ min: 1, max: registryCount }),
+        shipmentId: `R${faker.number.int({ min: 100, max: 999 })}`,
       };
     });
 
@@ -217,7 +221,7 @@ function transactions(quantity = 0): TTransactions {
 
 function dashboard(): TDashboard {
   return {
-    dataUnknown: dashboardUnknown(4),
+    dataUnknown: dashboardUnknown(5),
     alerts: dashboardAlerts(4),
     operations: dashboardOperations(4),
     shipments: dashboardShipments(4),

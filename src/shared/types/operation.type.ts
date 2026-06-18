@@ -12,6 +12,7 @@ export type TOperationResponse = {
 
 export type TOperation = {
   id: string;
+  operationId: string;
   personId: string; // Cpf
   operationValue?: number;
   status: string;

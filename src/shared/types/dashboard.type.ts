@@ -9,6 +9,7 @@ export type TDashboard = {
 
 export type TShipment = {
   id: string;
+  shipmentId: string;
   date: string;
   status: string;
   registryCount: number;
