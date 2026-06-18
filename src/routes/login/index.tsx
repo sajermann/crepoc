@@ -20,6 +20,8 @@ function LoginPage() {
   const navigate = useNavigate();
   const { accessToken } = useToken();
 
+  console.log(`Crepoc`, { env: import.meta.env });
+
   usePageDetails({ title: "Login" });
 
   useEffect(() => {
