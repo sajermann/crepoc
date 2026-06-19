@@ -1,13 +1,19 @@
 .customContainer {
-	max-height: 80vh;
-	max-width: 100%;
-	overflow: auto;
+  max-height: 80vh;
+  max-width: 100%;
+  overflow: auto;
 }
 
 .table {
-	border-collapse: collapse;
-	border-spacing: 0;
-	font-family: arial, sans-serif;
-	table-layout: fixed;
-	width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-stroke-primary);
+  border-radius: 12px;
+  font-family: arial, sans-serif;
+  table-layout: fixed;
+  width: 100%;
+}
+
+table thead {
+  text-transform: uppercase;
 }

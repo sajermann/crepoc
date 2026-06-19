@@ -43,7 +43,7 @@ export const useToken = create<Props>()(
           // const result = await jose.decodeJwt(get().accessToken || "");
           // return result as TUser;
           return {
-            name: 'Bruno Sajermann',
+            name: 'Bruno',
             roles: ['Operador'],
           } as TUser;
         } catch (e) {

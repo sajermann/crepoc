@@ -11,18 +11,13 @@ type TTheadProps<T> = {
 
 export function Thead<T>({ table, sorting }: TTheadProps<T>) {
   return (
-    <thead
-      className={managerClassNames({
-        "m-0 top-0 sticky z-1 backdrop-blur-md h-14": true,
-        "shadow-lg shadow-black/25": true,
-      })}
-    >
+    <thead className="h-14 text-sm">
       {table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => (
             <th
               className={managerClassNames([
-                "p-4 relative",
+                "p-4",
                 {
                   "text-left":
                     !header.getContext().column.columnDef.meta?.align,

@@ -4,7 +4,7 @@ import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 const trVariant = tv({
-  base: "h-17 max-h-17 min-h-17",
+  base: "h-17 max-h-17 min-h-17 hover:bg-surface-tertiary",
 });
 
 type Props<T> = DetailedHTMLProps<

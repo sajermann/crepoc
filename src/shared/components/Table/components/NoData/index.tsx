@@ -13,7 +13,7 @@ export function NoData<T>({ data, isLoading, columns }: Props<T>) {
   }
 
   return (
-    <Tr>
+    <Tr className="text-center">
       <Td colSpan={Object.keys(columns).length}>Sem dados</Td>
     </Tr>
   );

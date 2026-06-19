@@ -24,8 +24,9 @@ function DashboardIndex() {
         subtitle={`Última atualização: ${lastUpdate.toLocaleDateString()} às ${lastUpdate.toLocaleTimeString()}`}
         action={[
           {
-            icon: <RefreshCcwIcon />,
+            icon: <RefreshCcwIcon className="w-6" />,
             title: "Atualizar",
+            disabled: isFetching,
             onClick: () => {
               refetch();
               setLastUpdate(new Date());
@@ -38,7 +39,10 @@ function DashboardIndex() {
         {isFetching && <p>Atualizando dados...</p>}
         <DashboardCards dataUnknown={dashboardData?.dataUnknown || []} />
         <CriticalAlerts alerts={dashboardData?.alerts || []} />
-        <OperationToAct operations={dashboardData?.operations || []} />
+        <OperationToAct
+          operations={dashboardData?.operations || []}
+          isLoading={isFetching}
+        />
         <ShipmentsCards shipments={dashboardData?.shipments || []} />
 
         <span>Json Data</span>

@@ -35,7 +35,7 @@ export function ThContent<T>({
       <button
         type="button"
         className={managerClassNames([
-          "flex items-center gap-2",
+          "flex items-center gap-2 uppercase",
           "hover:opacity-70 transition-opacity duration-500",
           {
             "justify-center":
@@ -45,7 +45,7 @@ export function ThContent<T>({
 
             "cursor-pointer select-none":
               header.column.getCanSort() && !sorting,
-            "!cursor-default outline-0 tab select-none":
+            "cursor-default! outline-0 tab select-none":
               !header.column.getCanSort() || sorting?.disabled,
           },
         ])}

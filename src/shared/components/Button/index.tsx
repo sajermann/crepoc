@@ -37,7 +37,7 @@ const buttonVariants = tv({
         buttonPropsInternal: [""],
       },
       outlined: {
-        buttonPropsInternal: ["bg-transparent border"],
+        buttonPropsInternal: ["bg-transparent border border-black"],
       },
       option: {
         buttonPropsInternal: [

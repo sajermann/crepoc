@@ -25,7 +25,7 @@ export function Tbody<T>({
   return (
     <tbody
       className={managerClassNames({
-        "[&>*:nth-child(odd)]:bg-[#f2f2f2]": true,
+        "[&>*:nth-child(odd)]:bg-surface-secondary": true,
       })}
       style={{
         opacity: isLoading ? 0.5 : 1,
