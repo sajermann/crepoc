@@ -5,10 +5,12 @@ import {
   Input,
   Label,
 } from "~/shared/components";
+import { Icons } from "~/shared/components/Icons";
 import { useLogin } from "../../hooks";
 
 export function LoginForm() {
   const { handleSubmit, register, errors, isLoading } = useLogin();
+  // const isLoading = false;
 
   return (
     <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
@@ -51,17 +53,11 @@ export function LoginForm() {
       </ContainerInput>
 
       <div className="w-full flex flex-col items-center gap-2">
-        <Button
-          type="submit"
-          disabled={isLoading}
-          withFeedback={{
-            loadingOptions: {
-              isLoading,
-              typeLoadingIcon: "Points",
-            },
-          }}
-        >
-          Entrar
+        <Button type="submit" disabled={isLoading}>
+          <div className="flex items-center justify-center gap-2">
+            Entrar
+            {isLoading && <Icons nameIcon="loadingPoints" className="w-6" />}
+          </div>
         </Button>
       </div>
     </form>

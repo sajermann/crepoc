@@ -1,58 +1,35 @@
-import type { AllHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
-
-import { Children } from "./Children";
-import { EndIcon } from "./EndIcon";
-import { FeedbackIcon } from "./FeedbackIcon";
-import { LoadingIcon } from "./LoadingIcon";
-import { MainFeedback } from "./MainFeedback";
-import { StartIcon } from "./StartIcon";
-import type { TFeedbackProps } from "./types";
 
 const buttonVariants = tv({
   slots: {
     buttonPropsInternal: [
-      "py-1 px-4 w-40 h-11 border-0 font-bold flex items-center justify-center text-lg",
-      "relative overflow-hidden cursor-pointer disabled:cursor-not-allowed rounded-lg",
+      "w-fit h-fit border-0",
+      "cursor-pointer disabled:cursor-not-allowed! rounded-lg",
       "outline-none",
-      "active:opacity-50 focus:ring-2 hover:opacity-70",
-      "disabled:opacity-50 disabled:active:opacity-50 disabled:hover:opacity-50",
+      "pressed:",
+      "active:opacity-60 ring-0 hover:opacity-70",
+      "disabled:opacity-40 disabled:active:opacity-60 disabled:hover:opacity-50",
       "transition-all duration-500",
-    ],
-    containerInsideInternal: [
-      "flex items-center justify-center w-full h-full gap-1",
-    ],
-    containerIconInternal: ["h-full"],
-    containerChildrenInternal: [
-      "w-full overflow-hidden whitespace-nowrap text-ellipsis flex-1",
     ],
   },
   variants: {
     color: {
       primary: {
         buttonPropsInternal: [
-          "bg-blue-500 border border-blue-700 focus:ring-blue-700 text-white",
+          "bg-surface-brand-01-primary text-brand-content-01-primary ",
         ],
       },
       secondary: {
         buttonPropsInternal: [
-          "bg-red-500 border border-red-700 focus:ring-red-700 text-white",
+          "bg-surface-brand-02-primary text-brand-content-01-primary",
         ],
       },
-      success: {
-        buttonPropsInternal: [
-          "bg-green-500 border border-green-700 focus:ring-green-700 text-white",
-        ],
+      inverse: {
+        buttonPropsInternal: [""],
       },
-      warning: {
-        buttonPropsInternal: [
-          "bg-yellow-500 border border-yellow-700 focus:ring-yellow-700 text-white",
-        ],
-      },
-      mono: {
-        buttonPropsInternal: [
-          "bg-black border border-black focus:ring-black text-white",
-        ],
+      link: {
+        buttonPropsInternal: ["underline"],
       },
     },
     variant: {
@@ -60,7 +37,7 @@ const buttonVariants = tv({
         buttonPropsInternal: [""],
       },
       outlined: {
-        buttonPropsInternal: ["bg-transparent"],
+        buttonPropsInternal: ["bg-transparent border"],
       },
       option: {
         buttonPropsInternal: [
@@ -68,12 +45,16 @@ const buttonVariants = tv({
         ],
       },
     },
-    iconButton: {
-      rounded: {
-        buttonPropsInternal: ["w-11 h-11 p-2 rounded-full"],
+    size: {
+      default: {
+        buttonPropsInternal: [
+          "min-w-21 min-h-12 text-[17px] leading-6 py-3 px-6",
+        ],
       },
-      squared: {
-        buttonPropsInternal: ["w-11 h-11 p-2"],
+      small: {
+        buttonPropsInternal: [
+          "min-w-16.5 min-h-10 text-sm font-bold leading-6 py-2 px-4",
+        ],
       },
     },
   },
@@ -81,76 +62,49 @@ const buttonVariants = tv({
     {
       slots: ["buttonPropsInternal"],
       color: "primary",
-      variant: ["outlined", "option"],
-      className: "text-blue-500",
+      variant: ["outlined"],
+      className: "border-surface-brand-01-primary",
     },
     {
       slots: ["buttonPropsInternal"],
       color: "secondary",
-      variant: ["outlined", "option"],
-      className: "text-red-500",
+      variant: ["outlined"],
+      className:
+        "border-surface-brand-02-primary text-surface-brand-02-primary",
     },
     {
       slots: ["buttonPropsInternal"],
-      color: "success",
-      variant: ["outlined", "option"],
-      className: "text-green-500",
+      color: "inverse",
+      variant: ["outlined"],
+      className: "text-brand-content-01-primary",
     },
     {
       slots: ["buttonPropsInternal"],
-      color: "warning",
-      variant: ["outlined", "option"],
-      className: "text-yellow-500",
-    },
-    {
-      slots: ["buttonPropsInternal"],
-      color: "mono",
-      variant: ["outlined", "option"],
-      className: "text-black ",
+      color: "link",
+      variant: ["outlined"],
+      className: "border-0 text-brand-content-01-primary",
     },
   ],
 
   defaultVariants: {
     color: "primary",
     variant: "default",
+    size: "default",
   },
 });
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  containerIconsProps?: AllHTMLAttributes<HTMLDivElement>;
-  containerInsideProps?: AllHTMLAttributes<HTMLDivElement>;
-  containerChildrenProps?: AllHTMLAttributes<HTMLDivElement>;
-  withFeedback?: TFeedbackProps;
-  variant?: "default" | "outlined" | "option";
-  colorStyle?: "primary" | "secondary" | "success" | "warning" | "mono";
-  iconButton?: "rounded" | "squared";
+  variant?: "default" | "outlined";
+  colorStyle?: "primary" | "secondary" | "inverse" | "link";
+  size?: "default" | "small";
   type?: "submit" | "reset" | "button";
 }
 
-function Button({
-  withFeedback,
-  children,
-  startIcon,
-  endIcon,
-  containerIconsProps,
-  containerInsideProps,
-  containerChildrenProps,
-  colorStyle,
-  variant,
-  iconButton,
-  ...rest
-}: IButton) {
-  const {
-    buttonPropsInternal,
-    containerInsideInternal,
-    containerIconInternal,
-    containerChildrenInternal,
-  } = buttonVariants({
+function Button({ children, colorStyle, variant, size, ...rest }: IButton) {
+  const { buttonPropsInternal } = buttonVariants({
     color: colorStyle,
     variant,
-    iconButton,
+    size,
   });
 
   return (
@@ -160,48 +114,7 @@ function Button({
         className: rest.className,
       })}
     >
-      <div
-        {...containerInsideProps}
-        className={containerInsideInternal({
-          className: containerInsideProps?.className,
-        })}
-      >
-        <StartIcon
-          className={containerIconInternal({
-            className: containerIconsProps?.className,
-          })}
-        >
-          {startIcon}
-        </StartIcon>
-        <Children
-          withFeedback={withFeedback}
-          className={containerChildrenInternal({
-            className: [
-              containerChildrenProps?.className,
-              iconButton ? "flex justify-center" : "",
-            ],
-          })}
-        >
-          {children}
-        </Children>
-        <MainFeedback
-          withFeedback={withFeedback}
-          className={containerIconInternal({
-            className: containerIconsProps?.className,
-          })}
-        >
-          <LoadingIcon withFeedback={withFeedback} />
-          <FeedbackIcon withFeedback={withFeedback} />
-        </MainFeedback>
-        <EndIcon
-          withFeedback={withFeedback}
-          className={containerIconInternal({
-            className: containerIconsProps?.className,
-          })}
-        >
-          {endIcon}
-        </EndIcon>
-      </div>
+      {children}
     </button>
   );
 }
