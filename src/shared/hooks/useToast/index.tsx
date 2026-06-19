@@ -26,7 +26,7 @@ export function useToast() {
     msg: string,
     options?: TCustomReactToastify,
     toastContentOptions?: ToastContentProps,
-    toastOptions?: ToastOptions
+    toastOptions?: ToastOptions,
   ) {
     return reactToastify(
       (internalProps) => (
@@ -39,15 +39,15 @@ export function useToast() {
       {
         ...toastOptions,
         className: [
-          "!bg-transparent !backdrop-blur-md dark:!text-white !text-black h-full w-full",
-          "border rounded-lg overflow-hidden m-1 z-[999999999] !shadow-lg shadow-black/25 dark:shadow-white/25",
+          "!bg-transparent !backdrop-blur-md !text-black h-full w-full",
+          "border rounded-lg overflow-hidden m-1 z-[999999999] !shadow-lg shadow-black/25",
         ].join(" "),
         autoClose: options?.autoClose || 3000,
         closeButton: false,
         type: options?.type,
         icon: false,
         toastId: options?.id,
-      }
+      },
     );
   }
 

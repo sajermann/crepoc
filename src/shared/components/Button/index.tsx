@@ -52,7 +52,6 @@ const buttonVariants = tv({
       mono: {
         buttonPropsInternal: [
           "bg-black border border-black focus:ring-black text-white",
-          "dark:bg-white dark:border-white dark:focus:ring-white dark:text-black",
         ],
       },
     },
@@ -107,7 +106,7 @@ const buttonVariants = tv({
       slots: ["buttonPropsInternal"],
       color: "mono",
       variant: ["outlined", "option"],
-      className: "text-black dark:text-white dark:bg-transparent",
+      className: "text-black ",
     },
   ],
 

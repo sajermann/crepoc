@@ -14,7 +14,7 @@ export function Thead<T>({ table, sorting }: TTheadProps<T>) {
     <thead
       className={managerClassNames({
         "m-0 top-0 sticky z-1 backdrop-blur-md h-14": true,
-        "shadow-lg shadow-black/25 dark:shadow-white/25": true,
+        "shadow-lg shadow-black/25": true,
       })}
     >
       {table.getHeaderGroups().map((headerGroup) => (
