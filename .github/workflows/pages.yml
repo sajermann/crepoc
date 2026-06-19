@@ -47,6 +47,7 @@ jobs:
           echo "VITE_URL_API=''" >> .env
           echo "VITE_APPLICATION_IDENTIFICATOR=@crepoc" >> .env
           echo "VITE_ACCESS_TOKEN_SECRET=MY_SECRET" >> .env
+          echo "VITE_URL_BASENAME=\"crepoc/\"" >> .env
 
       - name: NPM CI
         run: npm ci
