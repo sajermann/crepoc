@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 import { CONSTANTS } from "~/shared/constants";
@@ -6,6 +6,7 @@ import { useToken } from "~/shared/hooks";
 
 export function VerifyAuth() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { accessToken } = useToken();
 
   useEffect(() => {
@@ -13,6 +14,6 @@ export function VerifyAuth() {
       navigate({ to: CONSTANTS.URL.LOGIN });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+  }, [accessToken, location.pathname]);
   return null;
 }
