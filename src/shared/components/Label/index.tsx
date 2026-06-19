@@ -20,10 +20,10 @@ const label = tv({
     color: {
       primary: {
         labelPropsInternal:
-          "group-hover:text-blue-500 group-focus-within:text-blue-500",
+          "group-hover:text-surface-brand-02-primary group-focus-within:text-surface-brand-02-primary",
       },
       error: {
-        labelPropsInternal: "text-red-500",
+        labelPropsInternal: "text-text-danger",
       },
       normal: {
         labelPropsInternal: "",

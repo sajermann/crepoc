@@ -1,3 +1,4 @@
+import { TriangleAlertIcon } from "lucide-react";
 import type { TAlert } from "~/shared/types/dashboard.type";
 import { managerClassNames } from "~/shared/utils/managerClassNames";
 
@@ -18,18 +19,31 @@ export function CriticalAlerts({ alerts }: TCriticalAlertsProps) {
           key={item.description}
           className={managerClassNames([
             "flex gap-3 p-4 flex-1 justify-between border border-secondary-100 rounded-md",
-            { "bg-yellow-200 text-yellow-500": item.severity === "low" },
-            { "bg-orange-200 text-orange-500": item.severity === "medium" },
-            { "bg-red-200 text-red-500": item.severity === "high" },
+            {
+              "bg-surface-brand-01-primary text-brand-content-01-primary":
+                item.severity === "low",
+            },
+            {
+              "bg-feedback-warning text-brand-content-01-primary":
+                item.severity === "medium",
+            },
+            {
+              "bg-feedback-danger text-brand-content-01-primary":
+                item.severity === "high",
+            },
           ])}
         >
-          <span className="uppercase text-xs font-semibold">
-            ⚠️ {item.description}
-          </span>
-
-          <span className="uppercase text-xs font-semibold">
-            {new Date(item.date).toLocaleTimeString()}
-          </span>
+          <div className="flex items-center gap-2">
+            <TriangleAlertIcon className="w-6" />
+            <span className="uppercase text-xs font-semibold">
+              {item.description}
+            </span>
+          </div>
+          <div className="flex items-center">
+            <span className="uppercase text-xs font-semibold">
+              {new Date(item.date).toLocaleTimeString()}
+            </span>
+          </div>
         </div>
       ))}
     </div>

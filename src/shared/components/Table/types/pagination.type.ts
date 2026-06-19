@@ -1,16 +1,19 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-export type TPagination = {
-  pageCount: number;
-  pageIndex: number;
-  pageSize: number;
-  setPagination: Dispatch<
+export type TPaginationControlled = {
+  rowCount?: number;
+  pageIndex?: number;
+  pageSize?: number;
+  onChange?: Dispatch<
     SetStateAction<{
       pageIndex: number;
       pageSize: number;
     }>
   >;
+};
+
+export type TPagination = {
   disabledActions?: boolean;
-  disabledPageSize?: boolean;
-  automatic?: boolean;
+  automatic?: boolean | { controlled?: TPaginationControlled };
+  manual?: TPaginationControlled;
 };

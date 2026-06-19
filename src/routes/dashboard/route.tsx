@@ -10,7 +10,7 @@ function DashboardRoute() {
   return (
     <div className="flex w-full h-full">
       <Sidebar />
-      <main className="flex-1 h-full">
+      <main className="flex-1 h-full overflow-auto">
         <Outlet />
       </main>
     </div>

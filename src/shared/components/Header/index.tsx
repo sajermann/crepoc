@@ -6,6 +6,8 @@ type THeaderProps = {
   action?: {
     title: string;
     icon: React.ReactNode;
+    iconPosition?: "left" | "right";
+    disabled?: boolean;
     onClick: () => void;
   }[];
 };
@@ -23,14 +25,18 @@ export function Header({ title, subtitle, action }: THeaderProps) {
             <Button
               key={item.title}
               variant="outlined"
-              startIcon={item.icon}
-              containerIconsProps={{
-                className: "flex items-center justify-center",
-              }}
-              color="mono"
               onClick={item.onClick}
+              disabled={item.disabled}
             >
-              {item.title}
+              {item.icon && (
+                <div className="flex items-center justify-center gap-2">
+                  {item.iconPosition === "left" ||
+                    (!item.iconPosition && item.icon)}
+                  {item.title}
+                  {item.iconPosition === "right" && item.icon}
+                </div>
+              )}
+              {!item.icon && item.title}
             </Button>
           ))}
         </div>

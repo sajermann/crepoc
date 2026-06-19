@@ -32,12 +32,11 @@ function LoginPage() {
   if (accessToken) return null;
 
   return (
-    <div className="flex items-center justify-center h-full bg-brand-300">
+    <div className="flex items-center justify-center h-full bg-surface-brand-02-primary">
       <div
         className={managerClassNames([
-          "flex items-center justify-center flex-col gap-6 border rounded-xl p-16 w-96",
-          "shadow-lg shadow-black/25 dark:shadow-white/25",
-          "bg-white",
+          "flex items-center justify-center flex-col gap-6 border border-stroke-primary rounded-xl p-16 w-96",
+          "shadow-lg shadow-black/25 bg-surface-primary",
         ])}
       >
         <h1 className="font-extrabold text-center text-5xl text-black">

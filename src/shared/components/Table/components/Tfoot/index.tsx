@@ -1,14 +1,18 @@
-import { flexRender } from "@tanstack/react-table";
+import { flexRender, type Table } from "@tanstack/react-table";
 import { managerClassNames } from "~/shared/utils";
-import { useTableMega } from "../../hooks";
 
-export function Tfoot() {
-  const { table } = useTableMega();
+type Props<T> = {
+  table: Table<T>;
+  showFooter?: boolean;
+};
+
+export function Tfoot<T>({ table, showFooter }: Props<T>) {
+  if (!showFooter) return null;
   return (
     <tfoot
       className={managerClassNames({
         "m-0 bottom-0 sticky z-1 backdrop-blur-md h-14": true,
-        "shadow-table-top-lg shadow-black/25 dark:shadow-white/25": true,
+        "shadow-table-top-lg shadow-black/25": true,
       })}
     >
       {table.getFooterGroups().map((footerGroup) => (

@@ -17,7 +17,15 @@
   font-display: swap;
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-stroke-primary);
+  }
+}
 
 @theme {
   --breakpoint-xm: 400px;
@@ -38,17 +46,72 @@
   --container-3xl: 1536px;
   --container-4xl: 1980px;
 
-  --color-brand-300: #23b9e2e6;
-  --color-brand-500: #007bff;
+  --color-surface-brand-01-primary: #ffcd00;
+  --color-surface-brand-01-secondary: #ffac00;
+  --color-surface-brand-01-tertiary: #fff79d;
 
-  --color-secondary: #6b7280;
+  --color-surface-brand-02-primary: #29a2ff;
+  --color-surface-brand-02-secondary: #145eb7;
+  --color-surface-brand-02-tertiary: #a9e8ff;
+
+  --color-surface-primary: #ffffff;
+  --color-surface-secondary: #f1f2f4;
+  --color-surface-tertiary: #e6eaf0;
+  --color-surface-disabled: #f7f9fc;
+  --color-surface-inverse: #000000;
+
+  --color-brand-content-01-primary: #000000;
+  --color-brand-content-01-secondary: #000000;
+  --color-brand-content-01-tertiary: #000000;
+
+  --color-brand-content-01-primary: #000000;
+  --color-brand-content-01-secondary: #000000;
+  --color-brand-content-01-tertiary: #000000;
+
+  --color-text-primary: #000000;
+  --color-text-secondary: #464646;
+  --color-text-disclaimer: #787878;
+  --color-text-placeholder: #787878;
+  --color-text-disabled: #a2a2a2;
+  --color-text-inverse: #ffffff;
+  --color-text-link: #29a2ff;
+  --color-text-danger: #f26144;
+
+  --color-stroke-primary: #e8e8e8;
+  --color-stroke-secondary: #787878;
+  --color-stroke-disable: #ffcd00;
+  --color-stroke-brand-primary: #000000;
+  /* --color-stroke-disable: #145EB7; */
+  /* --color-stroke-disable: #A2A2A2; */
+  /* --color-stroke-disable: #29A2FF; */
+  /* --color-stroke-disable: #F26144; */
+
+  --color-feedback-warning: #ffe30e;
+  --color-feedback-danger: #f26144;
+  --color-feedback-information: #74addb;
+  --color-feedback-success: #36b374;
+
+  --color-gradient-skeleton-from: rgba(0, 0, 0, 0.08);
+  --color-gradient-skeleton-to: rgba(0, 0, 0, 0.02);
+
+  --color-gradient-brand-01-primary-from: #ffcd00;
+  --color-gradient-brand-01-primary-to: #ffcd00;
+
+  --color-gradient-brand-01-secondary-from: #ffcd00;
+  --color-gradient-brand-01-secondary-to: rgba(255, 222, 58, 0.64);
+
+  --color-gradient-brand-02-primary-from: #29a2ff;
+  --color-gradient-brand-02-primary-to: #145eb7;
+
+  --color-gradient-brand-02-secondary-from: #39b0ff;
+  --color-gradient-brand-02-secondary-to: rgba(41, 162, 255, 0.64);
+
+  /* --color-brand-300: #23b9e2e6;
+  --color-brand-500: #007bff; */
+
+  /* --color-secondary: #6b7280;
   --color-secondary-100: #e5e7eb;
-  --color-background-main: #f9fafb;
-
-  --color-dark-400: #18181b;
-  --color-dark-500: #09090b;
-  --color-dark-600: #1f2937;
-  --color-dark-700: #0f1926;
+  --color-background-main: #f9fafb; */
 
   --width-inherit: inherit;
 
@@ -92,14 +155,10 @@ body {
   width: 100vw;
   font-family: "Lato", sans-serif;
   line-height: 1.9rem;
-  @apply bg-white dark:bg-dark-500 text-black dark:text-white;
+  @apply bg-white text-black;
 }
 
 #root {
   height: 100vh;
   width: 100vw;
-}
-
-button {
-  cursor: pointer;
 }

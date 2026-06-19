@@ -7,7 +7,7 @@ const input = tv({
   slots: {
     inputPropsInternal: [
       "group outline-none focus:ring-0 border border-black h-11 py-1 px-2 rounded w-full bg-transparent",
-      "transition-all duration-500 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-gray-500",
+      "transition-all duration-500 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-text-placeholder",
       "text-black",
     ],
   },
@@ -15,11 +15,11 @@ const input = tv({
     color: {
       primary: {
         inputPropsInternal:
-          "focus:ring-violet-700 group-hover:border-violet-700 focus:border-violet-700",
+          "focus:ring-surface-brand-02-primary group-hover:border-surface-brand-02-primary focus:border-surface-brand-02-primary",
       },
       error: {
         inputPropsInternal:
-          "focus:ring-red-500 group-hover:border-red-500 focus:border-red-500",
+          "focus:ring-text-danger group-hover:border-text-danger focus:border-text-danger",
       },
 
       normal: {
@@ -55,6 +55,7 @@ export const Input = forwardRef<HTMLInputElement, TInput>(
       }, debounce);
 
       return () => clearTimeout(timer);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [event]);
 
     return (
