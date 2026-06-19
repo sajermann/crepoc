@@ -1,9 +1,13 @@
-import { flexRender } from "@tanstack/react-table";
+import { flexRender, type Table } from "@tanstack/react-table";
 import { managerClassNames } from "~/shared/utils";
-import { useTableMega } from "../../hooks";
 
-export function Tfoot() {
-  const { table } = useTableMega();
+type Props<T> = {
+  table: Table<T>;
+  showFooter?: boolean;
+};
+
+export function Tfoot<T>({ table, showFooter }: Props<T>) {
+  if (!showFooter) return null;
   return (
     <tfoot
       className={managerClassNames({

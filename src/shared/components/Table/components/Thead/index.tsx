@@ -1,17 +1,54 @@
-import { type JSX } from "react";
-import { Default, type TDefaultProps } from "./Default";
-import { Sort } from "./Sort";
+import type { Table } from "@tanstack/react-table";
+import { managerClassNames } from "~/shared/utils";
+import { ThContent } from "./ThContent";
 
-type TheadComponent = ((props: TDefaultProps) => JSX.Element) & {
-  Sort: typeof Sort;
-  Default: typeof Default;
+type TTheadProps<T> = {
+  table: Table<T>;
+  sorting?: {
+    disabled?: boolean;
+  };
 };
 
-const Thead = ((props: TDefaultProps) => {
-  return <Default {...props} />;
-}) as TheadComponent;
-
-Thead.Sort = Sort;
-Thead.Default = Default;
-
-export { Thead };
+export function Thead<T>({ table, sorting }: TTheadProps<T>) {
+  return (
+    <thead
+      className={managerClassNames({
+        "m-0 top-0 sticky z-1 backdrop-blur-md h-14": true,
+        "shadow-lg shadow-black/25 dark:shadow-white/25": true,
+      })}
+    >
+      {table.getHeaderGroups().map((headerGroup) => (
+        <tr key={headerGroup.id}>
+          {headerGroup.headers.map((header) => (
+            <th
+              className={managerClassNames([
+                "p-4 relative",
+                {
+                  "text-left":
+                    !header.getContext().column.columnDef.meta?.align,
+                  "text-center":
+                    header.getContext().column.columnDef.meta?.align ===
+                    "center",
+                  "text-right":
+                    header.getContext().column.columnDef.meta?.align ===
+                    "right",
+                },
+              ])}
+              key={header.id}
+              colSpan={header.colSpan}
+              style={{
+                width: header.getSize(),
+              }}
+            >
+              {header.isPlaceholder ? null : (
+                <>
+                  <ThContent table={table} header={header} sorting={sorting} />
+                </>
+              )}
+            </th>
+          ))}
+        </tr>
+      ))}
+    </thead>
+  );
+}

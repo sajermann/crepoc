@@ -1,23 +1,43 @@
-import type { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { ColumnDef, Table } from "@tanstack/react-table";
 import { managerClassNames } from "~/shared/utils";
+import type { TExpandRow } from "../../types/expand-row.type";
+import { IsLoading } from "../IsLoading";
+import { NoData } from "../NoData";
+import { RowsWithoutVirtualization } from "../RowsWithoutVirtualization";
 
-type TTbodyProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLTableSectionElement>,
-  HTMLTableSectionElement
-> & {
+type Props<T> = {
+  table: Table<T>;
+  data: T[];
   isLoading?: boolean;
+  columns: ColumnDef<T>[];
+  expandRow?: TExpandRow<T>;
+  enableVirtualization?: boolean;
 };
 
-export function Tbody({ isLoading, ...rest }: TTbodyProps) {
+export function Tbody<T>({
+  table,
+  data,
+  isLoading,
+  columns,
+  expandRow,
+  enableVirtualization,
+}: Props<T>) {
   return (
     <tbody
-      {...rest}
       className={managerClassNames({
         "[&>*:nth-child(odd)]:bg-[#f2f2f2]": true,
-        "opacity-5": isLoading,
-        "opacity-100": !isLoading,
-        [rest.className as string]: !!rest.className,
       })}
-    />
+      style={{
+        opacity: isLoading ? 0.5 : 1,
+      }}
+    >
+      <NoData columns={columns} data={data} isLoading={isLoading} />
+      <IsLoading columns={columns} data={data} isLoading={isLoading} />
+      <RowsWithoutVirtualization
+        table={table}
+        enableVirtualization={enableVirtualization}
+        expandRow={expandRow}
+      />
+    </tbody>
   );
 }

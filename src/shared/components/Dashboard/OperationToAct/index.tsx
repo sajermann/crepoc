@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
-import * as TableMega from "~/shared/components/Table";
+import { Table } from "~/shared/components/Table";
 import type { TOperation } from "~/shared/types/operation.type";
 import { Button } from "../..";
 
@@ -65,14 +65,7 @@ export function OperationToAct({ operations }: TOperationToActProps) {
         <Button variant="outlined">Ver fila completa</Button>
       </div>
 
-      <TableMega.Root data={operations} columns={columns}>
-        <TableMega.Table>
-          <TableMega.Thead />
-          <TableMega.Tbody>
-            <TableMega.Rows />
-          </TableMega.Tbody>
-        </TableMega.Table>
-      </TableMega.Root>
+      <Table columns={columns} data={operations} />
     </div>
   );
 }

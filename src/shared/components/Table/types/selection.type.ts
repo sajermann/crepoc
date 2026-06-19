@@ -1,10 +1,7 @@
-import type { OnChangeFn, Row, RowSelectionState } from '@tanstack/react-table';
+import type { OnChangeFn, RowSelectionState } from '@tanstack/react-table';
 
-export type TSelection<T> = {
+export type TSelection = {
   type: 'multi' | 'single';
   rowSelection: { [index: number]: boolean };
   setRowSelection: OnChangeFn<RowSelectionState>;
-  disableSelectionRow?: (data: Row<T>) => boolean;
-  disableCheckbox?: boolean;
-  singleRadio?: true;
 };
