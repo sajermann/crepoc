@@ -31,8 +31,8 @@ function ButtonPagination({
   return (
     <Button
       variant="outlined"
-      colorStyle="mono"
-      iconButton="squared"
+      colorStyle="primary"
+      size="small"
       onClick={onClick}
       disabled={disabled}
       {...rest}
