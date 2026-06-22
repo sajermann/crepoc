@@ -11,6 +11,15 @@ export type TTransactionsResponse = {
   total: number;
 };
 
+export type TOperationForTransactions = {
+  id: string;
+  type: string;
+  operationValue: number;
+  status: string;
+  conciliation: string;
+  date: string;
+};
+
 export type TTransactions = {
   id: string;
   header: {
@@ -23,11 +32,5 @@ export type TTransactions = {
     alertDescription: string;
     alertType: string;
   };
-  operations: {
-    id: string;
-    type: string;
-    operationValue: number;
-    conciliation: string;
-    date: string;
-  }[];
+  operations: TOperationForTransactions[];
 };

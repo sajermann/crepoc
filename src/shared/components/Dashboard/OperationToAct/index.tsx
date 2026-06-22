@@ -47,6 +47,9 @@ export function OperationToAct({
                     "bg-feedback-success ": status === "Processada",
                   },
                   {
+                    "bg-feedback-information ": status === "Honrada",
+                  },
+                  {
                     "bg-feedback-warning": status === "Em análise",
                   },
                   {
