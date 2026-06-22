@@ -32,6 +32,6 @@ export function useDailyNews() {
     },
     placeholderData: keepPreviousData,
   });
-  const dailyNewsData = data || [];
+  const dailyNewsData: TDailyNews = data || ({} as TDailyNews);
   return { isFetching, dailyNewsData, refetch };
 }

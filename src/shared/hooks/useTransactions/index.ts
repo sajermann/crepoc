@@ -8,7 +8,7 @@ const KEY = 'dashboard';
 
 export function useTransactions() {
   // const { fetchData } = useAxios();
-  const { data, isFetching, refetch } = useQuery<TTransactions>({
+  const { data, isFetching, refetch } = useQuery<TTransactions | null>({
     queryKey: [KEY],
     queryFn: async () => {
       try {
@@ -27,11 +27,11 @@ export function useTransactions() {
         return {} as TTransactions;
       } catch (error) {
         console.log(`Error on fetching transactions data:`, error);
-        return {} as TTransactions;
+        return null;
       }
     },
     placeholderData: keepPreviousData,
   });
-  const transactionsData = data || [];
+  const transactionsData: TTransactions | null = data || null;
   return { isFetching, transactionsData, refetch };
 }

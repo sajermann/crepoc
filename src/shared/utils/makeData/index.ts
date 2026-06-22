@@ -12,8 +12,10 @@ import type {
 } from '~/shared/types/dashboard.type';
 import type { TOperation } from '~/shared/types/operation.type';
 import type { TRule } from '~/shared/types/rule.type';
-import type { TTransactions } from '~/shared/types/transactions.type';
-import type { TTreatedQueue } from '~/shared/types/treatment-queue.type';
+import type {
+  TOperationForTransactions,
+  TTransactions,
+} from '~/shared/types/transactions.type';
 
 const range = (len: number) => {
   const arr = [];
@@ -59,33 +61,52 @@ function cpf() {
   return `***.***.${faker.number.int({ min: 200, max: 300 })}-**`;
 }
 
-function dashboardOperations(quantity = 0) {
-  const makeDataLevel = (): TOperation[] =>
-    range(quantity).map((): TOperation => {
-      return {
-        id: faker.string.uuid(),
-        operationId: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
-        personId: cpf(),
-        status: faker.helpers.arrayElement([
-          'Rejeitada',
-          'Pendente',
-          'Impugnada',
-        ]),
-        reason: faker.helpers.arrayElement([
-          'Divergência de valor',
-          'Saldo não enviado',
-          'Retorno inconsistente',
-        ]),
-        actionDescription: faker.helpers.arrayElement([
-          'Corrigir e reenviar',
-          'Enviar saldo',
-          'Validar retorno',
-        ]),
-        impactValue: faker.number.int({ min: 1000, max: 15000 }),
-        actionLimitDate: faker.date.future().toISOString(),
-      };
-    });
+function operation() {
+  const status = faker.helpers.arrayElement([
+    'Rejeitada',
+    'Honrada',
+    'Pendente',
+    'Impugnada',
+  ]);
+  return {
+    id: faker.string.uuid(),
+    operationId: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
+    personId: cpf(),
+    status: status,
+    impactValue: faker.number.int({ min: 1000, max: 15000 }),
+    actionLimitDate: faker.date.future().toISOString(),
+    operationValue: faker.number.int({ min: 1000, max: 5000 }),
+    reason:
+      status !== 'Honrada'
+        ? faker.helpers.arrayElement([
+            'Divergência de valor',
+            'Saldo não enviado',
+            'Retorno inconsistente',
+          ])
+        : '-',
+    actionDescription:
+      status !== 'Honrada'
+        ? faker.helpers.arrayElement([
+            'Corrigir e reenviar',
+            'Enviar saldo',
+            'Validar retorno',
+          ])
+        : '-',
+    shipmentId: `R${faker.number.int({ min: 100, max: 999 })}`,
+    urgency:
+      status !== 'Honrada'
+        ? faker.helpers.arrayElement(['Crítico', 'Atenção'])
+        : 'Ok',
+  };
+}
 
+function operations(quantity = 0) {
+  const makeDataLevel = (): TOperation[] => range(quantity).map(operation);
+  return makeDataLevel();
+}
+
+function dashboardOperations(quantity = 0) {
+  const makeDataLevel = (): TOperation[] => range(quantity).map(operation);
   return makeDataLevel();
 }
 
@@ -111,52 +132,10 @@ function dashboardShipments(quantity = 0) {
 }
 
 function treatmentQueue(quantity = 0) {
-  const makeDataLevel = (): TTreatedQueue[] =>
-    range(quantity).map((): TTreatedQueue => {
-      return {
-        id: faker.string.uuid(),
-        personId: cpf(),
-        status: faker.helpers.arrayElement([
-          'Rejeitada',
-          'Pendente',
-          'Impugnada',
-        ]),
-        reason: faker.helpers.arrayElement([
-          'Divergência de valor',
-          'Saldo não enviado',
-          'Retorno inconsistente',
-        ]),
-        actionDescription: faker.helpers.arrayElement([
-          'Corrigir e reenviar',
-          'Enviar saldo',
-          'Validar retorno',
-        ]),
-        actionLimitDate: faker.date.future().toISOString(),
-        impactValue: faker.number.int({ min: 1000, max: 15000 }),
-        urgency: faker.helpers.arrayElement(['Crítico', 'Atenção', 'Normal']),
-      };
-    });
-
-  return makeDataLevel();
-}
-
-function operations(quantity = 0) {
   const makeDataLevel = (): TOperation[] =>
-    range(quantity).map((): TOperation => {
-      const status = faker.helpers.arrayElement(['Rejeitada', 'Honrada']);
-      return {
-        id: faker.string.uuid(),
-        operationId: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
-        personId: cpf(),
-        operationValue: faker.number.int({ min: 1000, max: 5000 }),
-        status: status,
-        reason: status === 'Rejeitada' ? 'Divergência de valor' : '-',
-        actionDescription: status === 'Rejeitada' ? 'Corrigir e reenviar' : '-',
-        shipmentId: `R${faker.number.int({ min: 100, max: 999 })}`,
-        urgency: status === 'Rejeitada' ? 'Crítico' : 'Ok',
-      };
-    });
-
+    range(quantity)
+      .map(operation)
+      .filter(item => item.status !== 'Honrada');
   return makeDataLevel();
 }
 
@@ -186,8 +165,8 @@ function shipments(quantity = 0) {
 }
 
 function operationForTransaction(quantity = 0) {
-  const makeDataLevel = (): any[] =>
-    range(quantity).map((): any => {
+  const makeDataLevel = (): TOperationForTransactions[] =>
+    range(quantity).map((): TOperationForTransactions => {
       const status = faker.helpers.arrayElement(['Divergente', 'Pago']);
       return {
         id: `OP-${faker.number.int({ min: 1000, max: 5000 })}`,
@@ -207,11 +186,11 @@ function transactions(quantity = 0): TTransactions {
     id: faker.string.uuid(),
     header: {
       expectedValue: faker.number.int({ min: 1000, max: 5000 }),
-      expectedDiference: faker.number.int({ min: 100, max: 500 }),
+      expectedDiference: faker.number.int({ min: 1, max: 10 }),
       paidValue: faker.number.int({ min: 1000, max: 5000 }),
-      paidValueDiference: faker.number.int({ min: 100, max: 500 }),
+      paidValueDiference: faker.number.int({ min: 1, max: 10 }),
       divergenceValue: faker.number.int({ min: 100, max: 500 }),
-      divergenceDiference: faker.number.int({ min: 100, max: 500 }),
+      divergenceDiference: faker.number.int({ min: 1, max: 10 }),
       alertDescription: faker.lorem.sentence(),
       alertType: faker.helpers.arrayElement(['Info', 'Warning', 'Error']),
     },
@@ -241,8 +220,8 @@ function indicators(): TIndicator[] {
   for (let i = 0; i < cards.length; i++) {
     indicators.push({
       title: cards[i],
-      description: `${faker.number.int({ min: 4, max: 40 })},0M`,
-      subtitle: faker.helpers.arrayElement([
+      subtitle: `${faker.number.int({ min: 4, max: 40 })},0M`,
+      description: faker.helpers.arrayElement([
         'estável',
         `${faker.number.int({ min: 1, max: 10 })}%`,
         'atenção',
@@ -309,9 +288,9 @@ export const makeData = {
   dashboard,
   randomObject,
   treatmentQueue,
-  operations,
   shipments,
   transactions,
   dailyNews,
   rules,
+  operations,
 };

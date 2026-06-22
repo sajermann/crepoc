@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import type { TOperation } from '~/shared/types/operation.type';
 // import { useAxios } from '~/shared/hooks';
-import type { TTreatedQueue } from '~/shared/types/treatment-queue.type';
 import { makeData } from '~/shared/utils';
 import { delay } from '~/shared/utils/delay';
 
@@ -8,7 +8,7 @@ const KEY = 'treatment-queue';
 
 export function useTreatmentQueue() {
   // const { fetchData } = useAxios();
-  const { data, isFetching, refetch } = useQuery<TTreatedQueue[]>({
+  const { data, isFetching, refetch } = useQuery<TOperation[]>({
     queryKey: [KEY],
     queryFn: async () => {
       try {

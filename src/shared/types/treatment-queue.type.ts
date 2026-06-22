@@ -1,3 +1,5 @@
+import type { TOperation } from './operation.type';
+
 export type TTreatedQueueRequest = {
   search?: string;
   status?: string;
@@ -7,17 +9,6 @@ export type TTreatedQueueRequest = {
 };
 
 export type TTreatedQueueResponse = {
-  data: TTreatedQueue[];
+  data: TOperation[];
   total: number;
-};
-
-export type TTreatedQueue = {
-  id: string;
-  personId: string; // Cpf
-  status: string;
-  reason: string;
-  actionDescription: string;
-  actionLimitDate: string;
-  impactValue: number;
-  urgency: string;
 };

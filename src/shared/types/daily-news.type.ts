@@ -14,8 +14,8 @@ export type TDailyNews = {
 
 export type TIndicator = {
   title: string;
-  description: string;
   subtitle: string;
+  description: string;
   status: string;
 };
 
